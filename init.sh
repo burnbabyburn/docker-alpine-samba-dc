@@ -103,6 +103,10 @@ appSetup () {
 	} >> /etc/krb5.conf
 	fi
 
+	  sed -e "s:{{ UDOMAIN }}:$UDOMAIN:" \
+      -e "s:{{ LDOMAIN }}:$LDOMAIN:" \
+      -i /etc/krb5.conf
+
 	# If the finished file isn't there, this is brand new, we're not just moving to a new container
 	if [ ! -f /etc/samba/external/smb.conf ]; then
 		if [[ -f /etc/samba/smb.conf ]]; then
