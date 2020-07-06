@@ -15,9 +15,7 @@ services:
     container_name: alpine-ad-dc
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - './samba-data/:/var/lib/samba'
-      - './samba-config/:/etc/samba/'
-      - './samba-log/:/var/log/samba/'
+      - './samba-containerdata/:/samba'
     environment:
       - DOMAIN=AD.CHAOS
       - DOMAINPASS=Pa!!word1

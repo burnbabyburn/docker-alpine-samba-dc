@@ -37,9 +37,10 @@ appSetup () {
 	LDOMAIN=$(echo "$DOMAIN" | tr '[:upper:]' '[:lower:]')
     UDOMAIN=$(echo "$LDOMAIN" | tr '[:lower:]' '[:upper:]')
     URDOMAIN=$(echo "$UDOMAIN" | cut -d "." -f1)
-	
+
+	# Otherwise ldbmodify etc. would fail
 	export LDB_MODULES_PATH=/usr/lib/samba/ldb/
-	
+
 	# Min Counter Values for NIS Attributes. Set in docker-compose if you want a different start
 	# IT does nothing on DCs as they shall not use idmap settings.
 	# Using the same Start and stop values on members however gets the RFC2307 attributs (NIS) rights
@@ -61,7 +62,7 @@ appSetup () {
 		echo "Sleeping 30s to ensure VPN connects ($VPNPID)";
 		sleep 30
 	fi
-	
+
 	#Remove unused supervisor config
 	rm /etc/supervisord.conf
 
@@ -71,13 +72,13 @@ appSetup () {
 	else
 		RFC_OPTION=""
 	fi
-	
+
 		if [ "$HOSTIP" != "NONE" ]; then
 		HOSTIP_OPTION="--host-ip=${HOSTIP}"
 	else
 		HOSTIP_OPTION=""
 	fi
-	
+
 	if [ "$DEBUG" = "true" ]; then
 		SAMBA_DEBUG_OPTION="-d $DEBUGLEVEL"
 		SAMBADAEMON_DEBUG_OPTION="--debug-stderr -d $DEBUGLEVEL"
