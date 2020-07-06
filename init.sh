@@ -149,7 +149,7 @@ appSetup () {
 				IMAP_UID_END=$((IMAP_UID_START+3))
 			
 				sed -e "s: {{ LDAPDN }}:$LDAPDN:g" \
-					-e "s:{{ NETBIOS }}:${URDOMAIN,,}:g" \
+					-e "s:{{ NETBIOS }}:$(echo "$URDOMAIN" | tr '[:upper:]' '[:lower:]'):g" \
 					-e "s:{{ GID_DOM_USER }}:$GID_DOM_USER:g" \
 					-e "s:{{ GID_DOM_ADMIN }}:$GID_DOM_ADMIN:g" \
 					-e "s:{{ GID_DOM_COMPUTERS }}:$GID_DOM_COMPUTERS:g" \
