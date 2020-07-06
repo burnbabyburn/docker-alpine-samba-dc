@@ -6,7 +6,7 @@ RUN apk add --no-cache samba-dc samba-dc-libs supervisor chrony krb5 ldb-tools \
 	&& apk add --no-cache samba-winbind-clients
 
 # Persist the configuration, data and log directories
-VOLUME ["/samba"]
+#VOLUME ["/samba"]
 
 # Expose ports
 EXPOSE 37/udp \
@@ -21,7 +21,7 @@ EXPOSE 37/udp \
        445 \
        464 \
        636/tcp \
-       1024-5000/tcp \
+       #1024-5000/tcp \
        3268/tcp \
        3269/tcp
 
