@@ -204,6 +204,9 @@ username map = /etc/samba/user.map\
 		touch /etc/samba/user.map
 		fi
 
+		#Someone writes bullish to this file
+		sed -i '/dns forwarder =/d' /etc/samba/smb.conf
+		
 		if [[ $DNSFORWARDER != "NONE" ]]; then
 			sed -i "/\[global\]/a \
 				\\\tdns forwarder = ${DNSFORWARDER}\
@@ -289,7 +292,7 @@ ldap server require strong auth = no\
 
 	  # Own socket
 	  mkdir -p /var/lib/samba/ntp_signd/
-	  chown root:ntp /var/lib/samba/ntp_signd/
+	  chown root:chrony /var/lib/samba/ntp_signd/
 	  chmod 750 /var/lib/samba/ntp_signd/
 
 	if [[ ! -d /var/lib/samba/winbindd_privileged/ ]]; then
