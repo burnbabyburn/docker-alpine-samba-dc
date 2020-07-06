@@ -3,7 +3,7 @@ FROM alpine:latest
 # Install
 RUN apk add --no-cache samba-dc samba-dc-libs supervisor chrony krb5 ldb-tools \
     && rm -rf /etc/samba/* \
-	&& apk add --no-cache samba-winbind-clients
+	&& apk add --no-cache samba-winbind-clients nano
 
 # Persist the configuration, data and log directories
 VOLUME ["/samba"]
@@ -12,6 +12,7 @@ VOLUME ["/samba"]
 EXPOSE 37/udp \
        53 \
        88 \
+	   123 \
        135/tcp \
        137/udp \
        138/udp \
