@@ -1,11 +1,7 @@
 FROM alpine:latest
 
 # Install
-RUN apk add --no-cache samba-dc supervisor chrony
-
-ln -s /samba/etc /etc/samba \
-ln -s /samba/lib /var/lib/samba \
-ln -s /samba/log /var/log/samba
+RUN apk add --no-cache samba-dc supervisor chrony krb5
 
 # Persist the configuration, data and log directories
 VOLUME ["/samba"]
