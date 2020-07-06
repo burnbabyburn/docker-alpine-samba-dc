@@ -173,7 +173,7 @@ appSetup () {
 					-e "s:{{ IMAP_GID_END }}:$IMAP_GID_END:g" \
 				/root/ldif/RFC_Domain_User_Group.ldif.j2 > /root/ldif/RFC_Domain_User_Group.ldif
 				
-				ldbmodify -H /var/lib/samba/private/sam.ldb /root/ldif/RFC_Domain_User_Group.ldif -U Administrator
+				ldbmodify -H /var/lib/samba/private/sam.ldb /root/ldif/RFC_Domain_User_Group.ldif
 			fi
 			
 			if [[ "$SCHEMA_LAPS" == "true" ]]; then
@@ -183,8 +183,8 @@ appSetup () {
 			sed -e "s: {{ LDAPDN }}:$LDAPDN:g" \
 			/root/ldif/laps-2.ldif.j2 > /root/ldif/laps-2.ldif
 			
-			ldbadd -H /var/lib/samba/private/sam.ldb --option="dsdb:schema update allowed"=true /root/ldif/laps-1.ldif -U Administrator
-			ldbmodify -H /var/lib/samba/private/sam.ldb --option="dsdb:schema update allowed"=true /root/ldif/laps-2.ldif -U Administrator
+			ldbadd -H /var/lib/samba/private/sam.ldb --option="dsdb:schema update allowed"=true /root/ldif/laps-1.ldif
+			ldbmodify -H /var/lib/samba/private/sam.ldb --option="dsdb:schema update allowed"=true /root/ldif/laps-2.ldif
 			fi
 
 			if [[ $(echo "$NOCOMPLEXITY" | tr '[:upper:]' '[:lower:]') == "true" ]]; then
