@@ -25,7 +25,7 @@ services:
       - HOSTIP=192.168.1.45
       - TLS=true
       - LOGS=true
-      - FREERADIUS=true
+      - NTPSERVERLIST=192.168.1.1
     networks:
       macvlan-samba:
         ipv4_address: 192.168.1.59
