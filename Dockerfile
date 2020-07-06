@@ -26,6 +26,6 @@ EXPOSE 37/udp \
 COPY init.sh /root/init.sh
 RUN chmod +x /root/init.sh
 COPY ldif/ /root/ldif/
-#COPY /etc /etc/
+COPY /etc /etc/
 
 CMD /root/init.sh setup
