@@ -260,13 +260,6 @@ ldap server require strong auth = no\
 			" /etc/samba/smb.conf
 		fi
 
-		# nsswitch anpassen
-		sed -i "s,passwd:.*,passwd:         files winbind,g" "/etc/nsswitch.conf"
-		sed -i "s,group:.*,group:          files winbind,g" "/etc/nsswitch.conf"
-		sed -i "s,hosts:.*,hosts:          files dns,g" "/etc/nsswitch.conf"
-		sed -i "s,networks:.*,networks:      files dns,g" "/etc/nsswitch.conf"
-
-
 		# Once we are set up, we'll make a file so that we know to use it if we ever spin this up again
 		cp -f /etc/samba/smb.conf /etc/samba/external/smb.conf
 	else
@@ -313,7 +306,7 @@ ldap server require strong auth = no\
 
 appFirstStart () {
 	/usr/bin/supervisord -c "/etc/supervisor/supervisord.conf"
-	net rpc rights grant "$UDOMAIN\Domain Admins" SeDiskOperatorPrivilege -U"$UDOMAIN\administrator" ${DEBUG_OPTION}
+	#net rpc rights grant "$URDOMAIN\Domain Admins" SeDiskOperatorPrivilege -U"$URDOMAIN\$DOMAINUSER%DOMAINPASS" ${DEBUG_OPTION}
 }
 
 appStart () {
