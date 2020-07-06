@@ -64,6 +64,9 @@ appSetup () {
 		echo "Sleeping 30s to ensure VPN connects ($VPNPID)";
 		sleep 30
 	fi
+	
+	#Remove unused supervisor config
+	rm /etc/supervisord.conf
 
 	# Set host ip option
 	if [ "$RFC2307" = "true" ]; then
@@ -295,21 +298,21 @@ ldap server require strong auth = no\
 	  chown root:chrony /var/lib/samba/ntp_signd/
 	  chmod 750 /var/lib/samba/ntp_signd/
 
-	if [[ ! -d /var/lib/samba/winbindd_privileged/ ]]; then
-	  mkdir /var/lib/samba/winbindd_privileged/
-	  chown root:winbindd_priv /var/lib/samba/winbindd_privileged/
-	  chmod 0750 /var/lib/samba/winbindd_privileged
-	else
-	  chown root:winbindd_priv /var/lib/samba/winbindd_privileged/
-	  chmod 0750 /var/lib/samba/winbindd_privileged
-	fi
+	#if [[ ! -d /var/lib/samba/winbindd_privileged/ ]]; then
+	  #mkdir /var/lib/samba/winbindd_privileged/
+	  #chown root:winbindd_priv /var/lib/samba/winbindd_privileged/
+	  #chmod 0750 /var/lib/samba/winbindd_privileged
+	#else
+	  #chown root:winbindd_priv /var/lib/samba/winbindd_privileged/#
+	  #chmod 0750 /var/lib/samba/winbindd_privileged
+#	fi
 
 	appFirstStart
 }
 
 appFirstStart () {
      mkdir -p /var/log/supervisor/
-	/usr/bin/supervisord -c "/etc/supervisord.conf"
+	/usr/bin/supervisord -c "/etc/supervisord/supervisord.conf"
 	#net rpc rights grant "$URDOMAIN\Domain Admins" SeDiskOperatorPrivilege -U"$URDOMAIN\$DOMAINUSER%DOMAINPASS" ${DEBUG_OPTION}
 }
 
