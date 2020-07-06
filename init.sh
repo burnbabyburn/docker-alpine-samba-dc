@@ -33,10 +33,16 @@ appSetup () {
 	MSCHAPV2=${MSCHAPV2:-true}
 	DEBUG=${DEBUG:-false}
 	DEBUGLEVEL=${DEBUGLEVEL:-0}
-
-	LDOMAIN=${DOMAIN,,} #alllowercase
-	UDOMAIN=${DOMAIN^^} #ALLUPPERCASE
-	URDOMAIN=${UDOMAIN%%.*} #trim
+	
+	# Only works in bash
+	#LDOMAIN=${DOMAIN,,} #alllowercase
+	#UDOMAIN=${DOMAIN^^} #ALLUPPERCASE
+	#URDOMAIN=${UDOMAIN%%.*} #trim
+	
+	#Posix
+	LDOMAIN=$(echo "$DOMAIN" | tr '[:upper:]' '[:lower:]')
+    UDOMAIN=$(echo "$LDOMAIN" | tr '[:lower:]' '[:upper:]')
+    URDOMAIN=$(echo "$UDOMAIN" | cut -d "." -f1)
 	
 	# Min Counter Values for NIS Attributes. Set in docker-compose if you want a different start
 	# IT does nothing on DCs as they shall not use idmap settings.
@@ -334,7 +340,7 @@ case "$1" in
 		;;
 	setup)
 		# If the supervisor conf isn't there, we're spinning up a new container
-		if [[ -f /etc/samba/smb.conf ]]; then
+		if [[ -f /etc/samba/external/smb.conf ]]; then
 			appStart
 		else
 			appSetup
