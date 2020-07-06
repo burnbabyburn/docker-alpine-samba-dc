@@ -284,7 +284,7 @@ ldap server require strong auth = no\
     NTPSERVER="$NTPSERVER server ${DC}    iburst\n"
   done
 
-  sed -e "s:{{ NTPSERVER }}:$NTPSERVER:" \
+  sed -e "s/{{ NTPSERVER }}/$NTPSERVER/" \
   -i /etc/chrony.conf
 
 	  # Own socket
@@ -305,6 +305,7 @@ ldap server require strong auth = no\
 }
 
 appFirstStart () {
+     mkdir -p /var/log/supervisor/
 	/usr/bin/supervisord -c "/etc/supervisor/supervisord.conf"
 	#net rpc rights grant "$URDOMAIN\Domain Admins" SeDiskOperatorPrivilege -U"$URDOMAIN\$DOMAINUSER%DOMAINPASS" ${DEBUG_OPTION}
 }
