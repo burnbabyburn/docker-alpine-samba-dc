@@ -22,7 +22,7 @@ services:
       - DOMAIN=AD.CHAOS
       - DOMAINPASS=Pa!!word1
       - DNSFORWARDER=192.168.1.6
-      - HOSTIP=192.168.1.45
+      - HOSTIP=192.168.1.59
       - TLS=true
       - LOGS=true
       - NTPSERVERLIST=192.168.1.1
