@@ -28,7 +28,10 @@ appSetup () {
 	RFC2307=${RFC2307:-true}
 	
 	NTPSERVERLIST=${NTPSERVERLIST:-0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org}
-	
+
+	#Change if hostname includes DNS/DOMAIN SUFFIX e.g. host.example.com - it should only display host
+	NETBIOS_NAME=${NETBIOS_NAME:-$(hostname)}
+
 	MSCHAPV2=${MSCHAPV2:-true}
 	DEBUG=${DEBUG:-false}
 	DEBUGLEVEL=${DEBUGLEVEL:-0}

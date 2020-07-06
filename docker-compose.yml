@@ -16,6 +16,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - './samba/tls:/var/lib/samba/private/tls'
+      - './samba/data:/var/lib/samba/'
       - './samba/data:/var/lib/samba'
       - './samba/log:/var/log/samba'
     environment:
