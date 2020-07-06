@@ -309,7 +309,7 @@ ldap server require strong auth = no\
 
 appFirstStart () {
      mkdir -p /var/log/supervisor/
-	/usr/bin/supervisord -c "/etc/supervisor/supervisord.conf"
+	/usr/bin/supervisord -c "/etc/supervisord.conf"
 	#net rpc rights grant "$URDOMAIN\Domain Admins" SeDiskOperatorPrivilege -U"$URDOMAIN\$DOMAINUSER%DOMAINPASS" ${DEBUG_OPTION}
 }
 
