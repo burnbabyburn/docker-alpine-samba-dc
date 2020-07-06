@@ -293,7 +293,7 @@ ldap server require strong auth = no\
 	  chown root:chrony /var/lib/samba/ntp_signd/
 	  chmod 750 /var/lib/samba/ntp_signd/
 
-	#if [[ ! -d /var/lib/samba/winbindd_privileged/ ]]; then
+	#if [[ ! -d /var/cache/samba/winbindd_privileged/ ]]; then
 	  #mkdir /var/lib/samba/winbindd_privileged/
 	  #chown root:winbindd_priv /var/lib/samba/winbindd_privileged/
 	  #chmod 0750 /var/lib/samba/winbindd_privileged

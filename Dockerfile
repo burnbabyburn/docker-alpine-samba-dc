@@ -1,8 +1,9 @@
 FROM alpine:latest
 
 # Install
-RUN apk add --no-cache samba-dc samba-dc-libs supervisor chrony krb5 ldb-tools\
-    && rm -rf /etc/samba/*
+RUN apk add --no-cache samba-dc samba-dc-libs supervisor chrony krb5 ldb-tools \
+    && rm -rf /etc/samba/* \
+	&& apk add --no-cache samba-winbind-clients
 
 # Persist the configuration, data and log directories
 VOLUME ["/samba"]
