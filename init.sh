@@ -26,19 +26,13 @@ appSetup () {
 	
 	SCHEMA_LAPS=${SCHEMA_LAPS:-true}
 	RFC2307=${RFC2307:-true}
-	SCHEMA_SSHPUBKEY=${SCHEMA_SSHPUBKEY:-true}
 	
 	NTPSERVERLIST=${NTPSERVERLIST:-0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org}
 	
 	MSCHAPV2=${MSCHAPV2:-true}
 	DEBUG=${DEBUG:-false}
 	DEBUGLEVEL=${DEBUGLEVEL:-0}
-	
-	# Only works in bash
-	#LDOMAIN=${DOMAIN,,} #alllowercase
-	#UDOMAIN=${DOMAIN^^} #ALLUPPERCASE
-	#URDOMAIN=${UDOMAIN%%.*} #trim
-	
+
 	#Posix
 	LDOMAIN=$(echo "$DOMAIN" | tr '[:upper:]' '[:lower:]')
     UDOMAIN=$(echo "$LDOMAIN" | tr '[:lower:]' '[:upper:]')
@@ -48,8 +42,9 @@ appSetup () {
 	# IT does nothing on DCs as they shall not use idmap settings.
 	# Using the same Start and stop values on members however gets the RFC2307 attributs (NIS) rights
 	# idmap config {{ URDOMAIN }} : range = {{ IDMIN }}-{{ IDMAX }} 
-	IMAP_UID_START=${IMAP_UID_START:-10000}
-	IMAP_GID_START=${IMAP_GID_START:-10000}
+	IMAP_ID_START=${IMAP_UID_START:-10000}
+	IMAP_UID_START=${IMAP_UID_START:-$IMAP_ID_START}
+	IMAP_GID_START=${IMAP_GID_START:-$IMAP_ID_START}
 	#DN for LDIF
 	LDAPDN=""
 	IFS='.'
@@ -312,7 +307,7 @@ ldap server require strong auth = no\
 
 appFirstStart () {
      mkdir -p /var/log/supervisor/
-	/usr/bin/supervisord -c "/etc/supervisord/supervisord.conf"
+	/usr/bin/supervisord -c "/etc/supervisor/supervisord.conf"
 	#net rpc rights grant "$URDOMAIN\Domain Admins" SeDiskOperatorPrivilege -U"$URDOMAIN\$DOMAINUSER%DOMAINPASS" ${DEBUG_OPTION}
 }
 

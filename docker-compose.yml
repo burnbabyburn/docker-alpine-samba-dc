@@ -26,6 +26,7 @@ services:
       - TLS=true
       - LOGS=true
       - NTPSERVERLIST=192.168.1.1
+      - IMAP_ID_START=10000
     networks:
       macvlan-samba:
         ipv4_address: 192.168.1.59
