@@ -283,23 +283,16 @@ ldap server require strong auth = no\
 	  echo "command=/usr/sbin/openvpn --config /docker.ovpn"
 	} >> /etc/supervisor/conf.d/supervisord.conf
 	fi
-	if [[ ! -f /var/lib/ntp/ntp.drift ]]; then
-		touch /var/lib/ntp/ntp.drift
-	fi
-	
+
   DCs=$(echo "$NTPSERVERLIST" | tr " " "\n")
   NTPSERVER=""
-  NTPSERVERRESTRICT=""
-  SERVERNTPLIST=""
   for DC in $DCs
   do
-    NTPSERVER="$NTPSERVER server ${DC}    iburst prefer\n"
-    NTPSERVERRESTRICT="$NTPSERVERRESTRICT restrict ${DC} mask 255.255.255.255    nomodify notrap nopeer noquery\n"
+    NTPSERVER="$NTPSERVER server ${DC}    iburst\n"
   done
 
   sed -e "s:{{ NTPSERVER }}:$NTPSERVER:" \
-    -e "s:{{ NTPSERVERRESTRICT }}:$NTPSERVERRESTRICT:" \
-  -i /etc/ntp.conf
+  -i /etc/chrony.conf
 
 	  # Own socket
 	  mkdir -p /var/lib/samba/ntp_signd/

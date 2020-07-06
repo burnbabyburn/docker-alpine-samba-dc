@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 # Install
-RUN apk add --no-cache samba-dc supervisor chrony krb5 \
+RUN apk add --no-cache samba-dc supervisor chrony krb5 ldb-tools\
     && rm -rf /etc/samba/*
 
 # Persist the configuration, data and log directories
