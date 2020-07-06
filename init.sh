@@ -60,7 +60,7 @@ appSetup () {
 	done
 	IFS=''
 	# If multi-site, we need to connect to the VPN before joining the domain
-	if [[ ${MULTISITE,,} == "true" ]]; then
+	if [[ $(echo "$MULTISITE" | tr '[:upper:]' '[:lower:]') == "true" ]]; then
 		/usr/sbin/openvpn --config /docker.ovpn &
 		VPNPID=$!
 		echo "Sleeping 30s to ensure VPN connects ($VPNPID)";
@@ -94,7 +94,7 @@ appSetup () {
 		mkdir /etc/samba/external
 	fi
 
-	if [[ ${LOGS,,} == "true" ]]; then
+	if [[ $(echo "$LOGS" | tr '[:upper:]' '[:lower:]') == "true" ]]; then
 	{
 		echo ""
 		echo "[logging]"
@@ -110,7 +110,7 @@ appSetup () {
 			mv /etc/samba/smb.conf /etc/samba/smb.conf.orig
 		fi
 
-		if [[ ${JOIN,,} == "true" ]]; then
+		if [[ $(echo "$JOIN" | tr '[:upper:]' '[:lower:]') == "true" ]]; then
 			if [[ ${JOINSITE} == "NONE" ]]; then
 				samba-tool domain join ${LDOMAIN} DC -U${URDOMAIN}\\${DOMAINUSER} --password=${DOMAINPASS} --dns-backend=SAMBA_INTERNAL ${SAMBA_DEBUG_OPTION}
 			else
@@ -189,7 +189,7 @@ appSetup () {
 			ldbmodify -H /var/lib/samba/private/sam.ldb --option="dsdb:schema update allowed"=true /root/ldif/laps-2.ldif -U Administrator
 			fi
 
-			if [[ ${NOCOMPLEXITY,,} == "true" ]]; then
+			if [[ $(echo "$NOCOMPLEXITY" | tr '[:upper:]' '[:lower:]') == "true" ]]; then
 				samba-tool domain passwordsettings set --complexity=off ${SAMBA_DEBUG_OPTION}
 				samba-tool domain passwordsettings set --history-length=0 ${SAMBA_DEBUG_OPTION}
 				samba-tool domain passwordsettings set --min-pwd-age=0 ${SAMBA_DEBUG_OPTION}
@@ -212,7 +212,7 @@ username map = /etc/samba/user.map\
 				" /etc/samba/smb.conf
 		fi
 		
-		if [[ ${TLS,,} == "true" ]]; then
+		if [[ $(echo "$TLS" | tr '[:upper:]' '[:lower:]') == "true" ]]; then
 #		openssl dhparam -out /var/lib/samba/private/tls/dh.key 2048 
 		sed -i "/\[global\]/a \
 tls enabled  = yes\\n\
@@ -233,7 +233,7 @@ reject md5 clients = yes\
 		
 
 		fi
-		if [[ ${MSCHAPV2,,} == "true" ]]; then
+		if [[ $(echo "$MSCHAPV2" | tr '[:upper:]' '[:lower:]') == "true" ]]; then
 		sed -i "/\[global\]/a \
 ntlm auth = mschapv2-and-ntlmv2-only\
 		" /etc/samba/smb.conf
@@ -249,14 +249,14 @@ printcap name = /dev/null\\n\
 disable spoolss = yes\
 		" /etc/samba/smb.conf
 		
-		if [[ ${LOGS,,} == "true" ]]; then
+		if [[ $(echo "$LOGS" | tr '[:upper:]' '[:lower:]') == "true" ]]; then
 			sed -i "/\[global\]/a \
 log file = /var/log/samba/%m.log\\n\
 max log size = 10000\\n\
 log level = 1\
 			" /etc/samba/smb.conf
 		fi
-		if [[ ${INSECURELDAP,,} == "true" ]]; then
+		if [[ $(echo "$INSECURELDAP" | tr '[:upper:]' '[:lower:]') == "true" ]]; then
 			sed -i "/\[global\]/a \
 ldap server require strong auth = no\
 			" /etc/samba/smb.conf
@@ -275,7 +275,7 @@ ldap server require strong auth = no\
 		cp -f /etc/samba/external/smb.conf /etc/samba/smb.conf
 	fi
   
-	if [[ ${MULTISITE,,} == "true" ]]; then
+	if [[ $(echo "$MULTISITE" | tr '[:upper:]' '[:lower:]') == "true" ]]; then
 	  if [[ -n $VPNPID ]]; then
 	    kill $VPNPID	
 	  fi
