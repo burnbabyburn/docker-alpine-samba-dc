@@ -288,7 +288,7 @@ ldap server require strong auth = no\
   done
 
   sed -e "s/{{ NTPSERVER }}/$NTPSERVER/" \
-  -i /etc/chrony.conf
+  -i /etc/chrony/chrony.conf
 
 	  # Own socket
 	  mkdir -p /var/lib/samba/ntp_signd/
