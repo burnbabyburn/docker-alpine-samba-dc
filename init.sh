@@ -296,18 +296,13 @@ ldap server require strong auth = no\
 	  chown root:chrony /var/lib/samba/ntp_signd/
 	  chmod 750 /var/lib/samba/ntp_signd/
 
-  ln -s /var/lib/samba/private/tls /samba/tls
-  ln -s /var/lib/samba /samba/data
-  ln -s /etc/samba /samba/samba/etc
-  ln -s /var/log/samba /samba/log
-
 	appFirstStart
 }
 
 appFirstStart () {
      mkdir -p /var/log/supervisor/
 	/usr/bin/supervisord -c "/etc/supervisor/supervisord.conf"
-	#net rpc rights grant "$URDOMAIN\Domain Admins" SeDiskOperatorPrivilege -U"$URDOMAIN\$DOMAINUSER%DOMAINPASS" ${DEBUG_OPTION}
+	net rpc rights grant "$URDOMAIN\Domain Admins" SeDiskOperatorPrivilege -U"$URDOMAIN\$DOMAINUSER%DOMAINPASS" ${DEBUG_OPTION}
 }
 
 appStart () {
