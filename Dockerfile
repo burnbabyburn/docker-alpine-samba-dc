@@ -23,7 +23,8 @@ EXPOSE 37/udp \
        3269/tcp
 
 COPY init.sh /init.sh
-COPY ldif/ /root/ldif/
-COPY /etc /etc/
+RUN chmod +x /init.sh
+#COPY ldif/ /root/ldif/
+#COPY /etc /etc/
 
 CMD /init.sh setup
