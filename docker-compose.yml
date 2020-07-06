@@ -52,8 +52,8 @@ services:
       - 192.168.1.45
       - 192.168.1.6
     extra_hosts:
-      - dc01 dc01.ad.chaos:192.168.1.45
-    hostname: dc01
+      - alpinedc01 alpinedc01.ad.chaos:192.168.1.59
+    hostname: alpinedc01
     domainname: ad.chaos
     cap_add:
       - NET_ADMIN
