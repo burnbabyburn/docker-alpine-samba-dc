@@ -91,6 +91,8 @@ appSetup () {
 		NTP_DEBUG_OPTION=""
 		SAMBADAEMON_DEBUG_OPTION=""
 	fi
+	
+	sed -e "s:{{ SAMBADAEMON_DEBUG_OPTION }}:$SAMBADAEMON_DEBUG_OPTION:" -i /etc/supervisor/conf.d/supervisord.conf
 
 	if [ ! -d /etc/samba/external/ ]; then
 		mkdir /etc/samba/external
